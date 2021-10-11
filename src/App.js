@@ -1,23 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
-
+import React, { useState } from "react";
+import Home from "./Home";
+import "./App.css";
+import Login from "./Login";
+import SignUp from "./SignUp";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { createBrowserHistory } from "history";
 function App() {
+  const history = createBrowserHistory();
+  const [token, setToken] = useState("");
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router history={history}>
+        <Switch>
+          <Route exact path="/" render={(props) => <SignUp {...props} />} />
+
+          <Route exact path="/login" render={(props) => <Login {...props} />} />
+
+          <Route
+            exact
+            path="/dashboard"
+            render={(props) => <Home {...props} />}
+          />
+        </Switch>
+      </Router>
     </div>
   );
 }
